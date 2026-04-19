@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- ============================================================
+         POPUP 1: DATOS FALTANTES (Email / Telefono)
+         Fondo AMARILLO, letras ROJAS, campos para completar
+         ============================================================ -->
+    <t t-name="pos_customer_alerts.MissingDataPopup">
+        <div class="modal pos-customer-alert-missing d-block" role="dialog"
+             t-on-keydown="onKeydown">
+            <div class="modal-backdrop show" t-on-click="onSkip"/>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <i class="fa fa-exclamation-triangle me-2"/>
+                            ATENCION - DATOS FALTANTES
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert-icon">&#9888;</div>
+
+                        <!-- Nombre del cajero -->
+                        <div class="alert-message" style="font-size: 22px; color: #B71C1C; margin-bottom: 5px;">
+                            <i class="fa fa-user me-1"/>
+                            <t t-esc="props.cashierName"/>, completa los datos:
+                        </div>
+
+                        <!-- Nombre del cliente -->
+                        <div class="alert-message" style="font-size: 20px; margin-bottom: 20px;">
+                            Cliente: <strong t-esc="props.customerName"/>
+                        </div>
+
+                        <t t-if="props.missingEmail">
+                            <div class="alert-message">
+                                &#10060; Falta MAIL del cliente !!!!
+                            </div>
+                            <div class="alert-input-group">
+                                <label class="alert-input-label">
+                                    <i class="fa fa-envelope me-2"/>Email del cliente:
+                                </label>
+                                <input class="alert-input"
+                                       type="email"
+                                       t-ref="emailInput"
+                                       t-model="state.email"
+                                       placeholder="ejemplo@mail.com"
+                                       t-on-keydown="onInputKeydown"/>
+                            </div>
+                        </t>
+
+                        <t t-if="props.missingPhone">
+                            <div class="alert-message">
+                                &#10060; Falta TELEFONO del cliente !!!!
+                            </div>
+                            <div class="alert-input-group">
+                                <label class="alert-input-label">
+                                    <i class="fa fa-phone me-2"/>Telefono celular:
+                                </label>
+                                <input class="alert-input"
+                                       type="tel"
+                                       t-ref="phoneInput"
+                                       t-model="state.phone"
+                                       placeholder="3434 123456"
+                                       t-on-keydown="onInputKeydown"/>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-alert-save"
+                                t-on-click="onSave">
+                            <i class="fa fa-check me-2"/>GUARDAR
+                        </button>
+                        <button class="btn btn-alert-skip"
+                                t-on-click="onSkip">
+                            Saltar por ahora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- ============================================================
+         POPUP 2: DESCUENTO MEDICACION
+         Fondo VERDE, informativo, solo boton OK
+         ============================================================ -->
+    <t t-name="pos_customer_alerts.DiscountAlertPopup">
+        <div class="modal pos-customer-alert-discount d-block" role="dialog"
+             t-on-keydown="onKeydown">
+            <div class="modal-backdrop show" t-on-click="onConfirm"/>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <i class="fa fa-tag me-2"/>
+                            DESCUENTO ACTIVO
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="discount-icon">&#127873;</div>
+
+                        <!-- Nombre del cajero -->
+                        <div class="discount-detail" style="font-size: 22px; margin-bottom: 10px;">
+                            <i class="fa fa-user me-1"/>
+                            <t t-esc="props.cashierName"/>, tene en cuenta:
+                        </div>
+
+                        <div class="discount-message">
+                            El cliente <strong t-esc="props.customerName"/> tiene<br/>
+                            <span style="font-size: 42px; color: #D50000;">20% OFF</span><br/>
+                            en MEDICACION
+                        </div>
+                        <div class="discount-detail">
+                            <i class="fa fa-info-circle me-1"/>
+                            Lista de precios: Promo MED 20%
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-alert-ok"
+                                t-on-click="onConfirm">
+                            <i class="fa fa-thumbs-up me-2"/>ENTENDIDO
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- ============================================================
+         POPUP 3: CONSUMIDOR FINAL - VENTA SIN CLIENTE
+         Fondo ROJO FUERTE, mensaje de advertencia con contador mensual
+         ============================================================ -->
+    <t t-name="pos_customer_alerts.ConsumerFinalPopup">
+        <div class="modal pos-customer-alert-consumer-final d-block" role="dialog"
+             t-on-keydown="onKeydown">
+            <div class="modal-backdrop show"/>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <i class="fa fa-ban me-2"/>
+                            VENTA SIN CLIENTE
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="cf-icon">&#128680;</div>
+
+                        <!-- Mensaje principal con nombre del cajero -->
+                        <div class="cf-message-main">
+                            <t t-esc="props.cashierName"/>,
+                            esta venta salio como
+                            CONSUMIDOR FINAL
+                        </div>
+
+                        <!-- Contador mensual -->
+                        <div class="cf-counter-box">
+                            <div class="cf-counter-number">
+                                <t t-esc="props.monthCount"/>
+                            </div>
+                            <div class="cf-counter-label">
+                                ventas a Consumidor Final este mes
+                            </div>
+                        </div>
+
+                        <!-- Mensaje de importancia -->
+                        <div class="cf-message-important">
+                            <i class="fa fa-exclamation-circle me-2"/>
+                            Es SUMAMENTE IMPORTANTE cargar los clientes en el sistema.
+                            Este aviso queda registrado.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-cf-close"
+                                t-on-click="onClose">
+                            <i class="fa fa-check me-2"/>ENTENDIDO
+                        </button>
+                        <div class="cf-esc-hint">
+                            Presiona ESC para cerrar
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- ============================================================
+         POPUP 4: PEDIDOS WEB PENDIENTES (Solo Suc Coto)
+         Fondo AZUL/NARANJA, lista de pedidos, cada 5 min
+         ============================================================ -->
+    <t t-name="pos_customer_alerts.PendingWebOrdersPopup">
+        <div class="modal pos-customer-alert-web-orders d-block" role="dialog"
+             t-on-keydown="onKeydown">
+            <div class="modal-backdrop show"/>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <i class="fa fa-shopping-cart me-2"/>
+                            PEDIDOS WEB PENDIENTES
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="wo-icon">&#128230;</div>
+
+                        <div class="wo-message-main">
+                            <t t-esc="props.cashierName"/>,
+                            hay <strong t-esc="props.orderCount"/> pedido/s
+                            de la web sin entregar!
+                        </div>
+
+                        <!-- Lista de pedidos -->
+                        <div class="wo-orders-list">
+                            <t t-foreach="props.orders" t-as="order" t-key="order.id">
+                                <div class="wo-order-row">
+                                    <div class="wo-order-name">
+                                        <i class="fa fa-file-text me-1"/>
+                                        <t t-esc="order.name"/>
+                                    </div>
+                                    <div class="wo-order-customer">
+                                        <i class="fa fa-user me-1"/>
+                                        <t t-esc="order.customer"/>
+                                    </div>
+                                    <div class="wo-order-amount">
+                                        $ <t t-esc="order.amount.toLocaleString('es-AR')"/>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+
+                        <div class="wo-message-urgent">
+                            <i class="fa fa-clock-o me-2"/>
+                            Este aviso se repite cada 5 minutos hasta que se gestionen las entregas.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-wo-ok"
+                                t-on-click="onClose">
+                            <i class="fa fa-check me-2"/>ENTENDIDO
+                        </button>
+                        <div class="cf-esc-hint">
+                            Presiona ESC para cerrar
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

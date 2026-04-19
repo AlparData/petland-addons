@@ -1,0 +1,530 @@
+/* ============================================================
+   POS CUSTOMER ALERTS - POPUPS GRANDES IMPOSIBLES DE IGNORAR
+   ============================================================ */
+
+/* Popup de datos faltantes (email/telefono) - AMARILLO CON ROJO */
+.pos-customer-alert-missing .modal-content {
+    background-color: #FFD600 !important;
+    border: 6px solid #D50000 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 0 60px rgba(213, 0, 0, 0.5) !important;
+    animation: pulse-alert 1s ease-in-out infinite;
+}
+
+.pos-customer-alert-missing .modal-dialog {
+    max-width: 700px !important;
+    min-width: 600px !important;
+}
+
+.pos-customer-alert-missing .modal-header {
+    background-color: #D50000 !important;
+    border-radius: 14px 14px 0 0 !important;
+    padding: 20px 30px !important;
+    border-bottom: none !important;
+}
+
+.pos-customer-alert-missing .modal-title {
+    color: #FFFFFF !important;
+    font-size: 32px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.pos-customer-alert-missing .modal-body {
+    padding: 30px 40px !important;
+    background-color: #FFD600 !important;
+}
+
+.pos-customer-alert-missing .alert-icon {
+    font-size: 80px !important;
+    text-align: center !important;
+    margin-bottom: 15px !important;
+    animation: shake 0.5s ease-in-out infinite;
+}
+
+.pos-customer-alert-missing .alert-message {
+    color: #D50000 !important;
+    font-size: 28px !important;
+    font-weight: 900 !important;
+    text-align: center !important;
+    margin-bottom: 25px !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.pos-customer-alert-missing .alert-input-group {
+    margin-bottom: 20px !important;
+}
+
+.pos-customer-alert-missing .alert-input-label {
+    color: #B71C1C !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+}
+
+.pos-customer-alert-missing .alert-input {
+    width: 100% !important;
+    padding: 18px 20px !important;
+    font-size: 22px !important;
+    border: 4px solid #D50000 !important;
+    border-radius: 12px !important;
+    background-color: #FFFFFF !important;
+    color: #212121 !important;
+    font-weight: 600 !important;
+    outline: none !important;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pos-customer-alert-missing .alert-input:focus {
+    border-color: #B71C1C !important;
+    box-shadow: 0 0 15px rgba(213, 0, 0, 0.3) !important;
+}
+
+.pos-customer-alert-missing .alert-input::placeholder {
+    color: #999 !important;
+    font-weight: 400 !important;
+}
+
+.pos-customer-alert-missing .modal-footer {
+    background-color: #FFD600 !important;
+    border-top: none !important;
+    padding: 15px 40px 30px !important;
+    justify-content: center !important;
+    border-radius: 0 0 14px 14px !important;
+}
+
+.pos-customer-alert-missing .btn-alert-save {
+    background-color: #D50000 !important;
+    color: #FFFFFF !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    padding: 15px 50px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    cursor: pointer !important;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pos-customer-alert-missing .btn-alert-save:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(213, 0, 0, 0.4) !important;
+}
+
+.pos-customer-alert-missing .btn-alert-skip {
+    background-color: transparent !important;
+    color: #B71C1C !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    padding: 10px 30px !important;
+    border: 2px solid #B71C1C !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    margin-left: 15px !important;
+}
+
+/* Popup de descuento medicacion - VERDE INFORMATIVO */
+.pos-customer-alert-discount .modal-content {
+    background-color: #E8F5E9 !important;
+    border: 5px solid #2E7D32 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 0 40px rgba(46, 125, 50, 0.4) !important;
+}
+
+.pos-customer-alert-discount .modal-dialog {
+    max-width: 650px !important;
+    min-width: 550px !important;
+}
+
+.pos-customer-alert-discount .modal-header {
+    background-color: #2E7D32 !important;
+    border-radius: 14px 14px 0 0 !important;
+    padding: 20px 30px !important;
+    border-bottom: none !important;
+}
+
+.pos-customer-alert-discount .modal-title {
+    color: #FFFFFF !important;
+    font-size: 28px !important;
+    font-weight: 900 !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.pos-customer-alert-discount .modal-body {
+    padding: 40px !important;
+    text-align: center !important;
+}
+
+.pos-customer-alert-discount .discount-icon {
+    font-size: 90px !important;
+    margin-bottom: 20px !important;
+}
+
+.pos-customer-alert-discount .discount-message {
+    color: #1B5E20 !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    line-height: 1.4 !important;
+}
+
+.pos-customer-alert-discount .discount-detail {
+    color: #2E7D32 !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    margin-top: 15px !important;
+}
+
+.pos-customer-alert-discount .modal-footer {
+    background-color: #E8F5E9 !important;
+    border-top: none !important;
+    justify-content: center !important;
+    padding: 15px 40px 30px !important;
+    border-radius: 0 0 14px 14px !important;
+}
+
+.pos-customer-alert-discount .btn-alert-ok {
+    background-color: #2E7D32 !important;
+    color: #FFFFFF !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    padding: 15px 60px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    cursor: pointer !important;
+}
+
+/* Animaciones */
+@keyframes pulse-alert {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.01);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+/* ============================================================
+   POPUP 3: CONSUMIDOR FINAL - ROJO TOTAL IMPOSIBLE DE IGNORAR
+   ============================================================ */
+.pos-customer-alert-consumer-final .modal-content {
+    background-color: #B71C1C !important;
+    border: 8px solid #FF1744 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 0 80px rgba(255, 23, 68, 0.6) !important;
+    animation: pulse-red 0.8s ease-in-out infinite;
+}
+
+.pos-customer-alert-consumer-final .modal-dialog {
+    max-width: 750px !important;
+    min-width: 650px !important;
+}
+
+.pos-customer-alert-consumer-final .modal-header {
+    background-color: #880E4F !important;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 20px 30px !important;
+    border-bottom: none !important;
+}
+
+.pos-customer-alert-consumer-final .modal-title {
+    color: #FFFFFF !important;
+    font-size: 34px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.pos-customer-alert-consumer-final .modal-body {
+    padding: 30px 40px !important;
+    text-align: center !important;
+}
+
+.pos-customer-alert-consumer-final .cf-icon {
+    font-size: 90px !important;
+    text-align: center !important;
+    margin-bottom: 15px !important;
+    animation: shake 0.4s ease-in-out infinite;
+}
+
+.pos-customer-alert-consumer-final .cf-message-main {
+    color: #FFFFFF !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    text-align: center !important;
+    margin-bottom: 25px !important;
+    line-height: 1.4 !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Caja del contador mensual */
+.pos-customer-alert-consumer-final .cf-counter-box {
+    background-color: #FFFFFF !important;
+    border: 4px solid #FF1744 !important;
+    border-radius: 16px !important;
+    padding: 20px 30px !important;
+    margin: 20px auto !important;
+    max-width: 400px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pos-customer-alert-consumer-final .cf-counter-number {
+    color: #D50000 !important;
+    font-size: 72px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    margin-bottom: 5px !important;
+}
+
+.pos-customer-alert-consumer-final .cf-counter-label {
+    color: #B71C1C !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}
+
+/* Mensaje de importancia */
+.pos-customer-alert-consumer-final .cf-message-important {
+    color: #FFCDD2 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    margin-top: 20px !important;
+    padding: 15px !important;
+    border: 2px dashed #FF8A80 !important;
+    border-radius: 10px !important;
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.pos-customer-alert-consumer-final .modal-footer {
+    background-color: #B71C1C !important;
+    border-top: none !important;
+    padding: 15px 40px 25px !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    border-radius: 0 0 12px 12px !important;
+}
+
+.pos-customer-alert-consumer-final .btn-cf-close {
+    background-color: #FFFFFF !important;
+    color: #D50000 !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    padding: 15px 60px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    cursor: pointer !important;
+    transition: transform 0.2s;
+}
+
+.pos-customer-alert-consumer-final .btn-cf-close:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3) !important;
+}
+
+.pos-customer-alert-consumer-final .cf-esc-hint {
+    color: #FF8A80 !important;
+    font-size: 14px !important;
+    margin-top: 10px !important;
+    font-weight: 500 !important;
+}
+
+@keyframes pulse-red {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 80px rgba(255, 23, 68, 0.6);
+    }
+
+    50% {
+        transform: scale(1.015);
+        box-shadow: 0 0 100px rgba(255, 23, 68, 0.8);
+    }
+}
+
+/* ============================================================
+   POPUP 4: PEDIDOS WEB PENDIENTES (Suc Coto) - AZUL/NARANJA
+   ============================================================ */
+.pos-customer-alert-web-orders .modal-content {
+    background-color: #E3F2FD !important;
+    border: 6px solid #E65100 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 0 60px rgba(230, 81, 0, 0.5) !important;
+    animation: pulse-orange 1s ease-in-out infinite;
+}
+
+.pos-customer-alert-web-orders .modal-dialog {
+    max-width: 750px !important;
+    min-width: 650px !important;
+}
+
+.pos-customer-alert-web-orders .modal-header {
+    background-color: #E65100 !important;
+    border-radius: 14px 14px 0 0 !important;
+    padding: 20px 30px !important;
+    border-bottom: none !important;
+}
+
+.pos-customer-alert-web-orders .modal-title {
+    color: #FFFFFF !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.pos-customer-alert-web-orders .modal-body {
+    padding: 25px 35px !important;
+    text-align: center !important;
+}
+
+.pos-customer-alert-web-orders .wo-icon {
+    font-size: 80px !important;
+    text-align: center !important;
+    margin-bottom: 10px !important;
+}
+
+.pos-customer-alert-web-orders .wo-message-main {
+    color: #BF360C !important;
+    font-size: 26px !important;
+    font-weight: 900 !important;
+    text-align: center !important;
+    margin-bottom: 20px !important;
+    line-height: 1.3 !important;
+}
+
+/* Lista de pedidos */
+.pos-customer-alert-web-orders .wo-orders-list {
+    max-height: 250px !important;
+    overflow-y: auto !important;
+    margin: 15px 0 !important;
+    border: 3px solid #1565C0 !important;
+    border-radius: 12px !important;
+    background-color: #FFFFFF !important;
+}
+
+.pos-customer-alert-web-orders .wo-order-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 12px 18px !important;
+    border-bottom: 2px solid #E3F2FD !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+}
+
+.pos-customer-alert-web-orders .wo-order-row:last-child {
+    border-bottom: none !important;
+}
+
+.pos-customer-alert-web-orders .wo-order-name {
+    color: #1565C0 !important;
+    font-weight: 800 !important;
+    min-width: 100px !important;
+}
+
+.pos-customer-alert-web-orders .wo-order-customer {
+    color: #37474F !important;
+    flex: 1 !important;
+    text-align: center !important;
+}
+
+.pos-customer-alert-web-orders .wo-order-amount {
+    color: #E65100 !important;
+    font-weight: 900 !important;
+    font-size: 20px !important;
+    min-width: 120px !important;
+    text-align: right !important;
+}
+
+.pos-customer-alert-web-orders .wo-message-urgent {
+    color: #BF360C !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    margin-top: 15px !important;
+    padding: 12px !important;
+    border: 2px dashed #E65100 !important;
+    border-radius: 10px !important;
+    background-color: #FFF3E0 !important;
+}
+
+.pos-customer-alert-web-orders .modal-footer {
+    background-color: #E3F2FD !important;
+    border-top: none !important;
+    padding: 15px 40px 25px !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    border-radius: 0 0 14px 14px !important;
+}
+
+.pos-customer-alert-web-orders .btn-wo-ok {
+    background-color: #E65100 !important;
+    color: #FFFFFF !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    padding: 15px 60px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    cursor: pointer !important;
+}
+
+.pos-customer-alert-web-orders .btn-wo-ok:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(230, 81, 0, 0.4) !important;
+}
+
+@keyframes pulse-orange {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.01);
+        box-shadow: 0 0 80px rgba(230, 81, 0, 0.6);
+    }
+}
+
+/* Overlay oscuro para que resalte mas */
+.pos-customer-alert-missing .modal-backdrop,
+.pos-customer-alert-discount .modal-backdrop,
+.pos-customer-alert-consumer-final .modal-backdrop,
+.pos-customer-alert-web-orders .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}

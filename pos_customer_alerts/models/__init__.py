@@ -1,0 +1,1 @@
+from . import pos_consumer_alert_log

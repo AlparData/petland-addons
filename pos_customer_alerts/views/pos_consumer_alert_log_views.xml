@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ============================================================
+         VISTA LISTA: Historial de Alertas Consumidor Final
+         ============================================================ -->
+    <record id="view_pos_consumer_alert_log_list" model="ir.ui.view">
+        <field name="name">pos.consumer.alert.log.list</field>
+        <field name="model">pos.consumer.alert.log</field>
+        <field name="arch" type="xml">
+            <list string="Alertas Consumidor Final" decoration-danger="month_count >= 10" decoration-warning="month_count >= 5">
+                <field name="alert_datetime" string="Fecha/Hora"/>
+                <field name="employee_name" string="Empleado"/>
+                <field name="pos_config_name" string="Sucursal"/>
+                <field name="order_ref" string="Orden"/>
+                <field name="order_amount" string="Monto $" widget="monetary"/>
+                <field name="month_count" string="Acumulado Mes"
+                       decoration-danger="month_count >= 10"
+                       decoration-warning="month_count >= 5"/>
+                <field name="acknowledged" string="Visto" widget="boolean"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         VISTA FORMULARIO
+         ============================================================ -->
+    <record id="view_pos_consumer_alert_log_form" model="ir.ui.view">
+        <field name="name">pos.consumer.alert.log.form</field>
+        <field name="model">pos.consumer.alert.log</field>
+        <field name="arch" type="xml">
+            <form string="Detalle Alerta Consumidor Final">
+                <sheet>
+                    <group>
+                        <group string="Empleado">
+                            <field name="employee_id"/>
+                            <field name="employee_name"/>
+                            <field name="month_count" string="Alertas este mes"/>
+                        </group>
+                        <group string="Venta">
+                            <field name="pos_config_id"/>
+                            <field name="order_ref"/>
+                            <field name="order_amount" widget="monetary"/>
+                            <field name="alert_datetime"/>
+                        </group>
+                    </group>
+                    <group string="Seguimiento">
+                        <field name="acknowledged"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         VISTA PIVOT: Resumen por Empleado/Mes
+         ============================================================ -->
+    <record id="view_pos_consumer_alert_log_pivot" model="ir.ui.view">
+        <field name="name">pos.consumer.alert.log.pivot</field>
+        <field name="model">pos.consumer.alert.log</field>
+        <field name="arch" type="xml">
+            <pivot string="Resumen Alertas por Empleado">
+                <field name="employee_name" type="row"/>
+                <field name="pos_config_name" type="row"/>
+                <field name="alert_date" type="col" interval="month"/>
+                <field name="id" type="measure" string="Cantidad"/>
+                <field name="order_amount" type="measure" string="Monto Total"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         VISTA GRAFICO
+         ============================================================ -->
+    <record id="view_pos_consumer_alert_log_graph" model="ir.ui.view">
+        <field name="name">pos.consumer.alert.log.graph</field>
+        <field name="model">pos.consumer.alert.log</field>
+        <field name="arch" type="xml">
+            <graph string="Alertas Consumidor Final" type="bar">
+                <field name="employee_name" type="row"/>
+                <field name="id" type="measure" string="Cantidad Alertas"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         FILTROS DE BUSQUEDA
+         ============================================================ -->
+    <record id="view_pos_consumer_alert_log_search" model="ir.ui.view">
+        <field name="name">pos.consumer.alert.log.search</field>
+        <field name="model">pos.consumer.alert.log</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Alertas">
+                <field name="employee_name"/>
+                <field name="pos_config_name"/>
+                <field name="order_ref"/>
+                <separator/>
+                <filter name="this_month" string="Este Mes"
+                        domain="[('alert_date', '>=', (context_today()).strftime('%%Y-%%m-01'))]"/>
+                <filter name="last_month" string="Mes Anterior"
+                        domain="[
+                            ('alert_date', '>=', (context_today() - relativedelta(months=1)).strftime('%%Y-%%m-01')),
+                            ('alert_date', '&lt;', context_today().strftime('%%Y-%%m-01'))
+                        ]"/>
+                <separator/>
+                <filter name="high_count" string="5+ alertas en mes"
+                        domain="[('month_count', '>=', 5)]"/>
+                <filter name="critical_count" string="10+ alertas en mes"
+                        domain="[('month_count', '>=', 10)]"/>
+                <separator/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_employee" string="Empleado"
+                            context="{'group_by': 'employee_id'}"/>
+                    <filter name="group_pos" string="Sucursal"
+                            context="{'group_by': 'pos_config_id'}"/>
+                    <filter name="group_month" string="Mes"
+                            context="{'group_by': 'alert_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         ACCION Y MENU
+         ============================================================ -->
+    <record id="action_pos_consumer_alert_log" model="ir.actions.act_window">
+        <field name="name">Alertas Consumidor Final</field>
+        <field name="res_model">pos.consumer.alert.log</field>
+        <field name="view_mode">list,pivot,graph,form</field>
+        <field name="search_view_id" ref="view_pos_consumer_alert_log_search"/>
+        <field name="context">{'search_default_this_month': 1, 'search_default_group_employee': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay alertas registradas
+            </p>
+            <p>
+                Aqui se registran todas las ventas que salieron como Consumidor Final.
+                Cada registro incluye el empleado, sucursal, monto y conteo mensual.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu dentro de Punto de Venta > Reportes -->
+    <menuitem id="menu_pos_consumer_alert_log"
+              name="Alertas Consumidor Final"
+              parent="point_of_sale.menu_point_rep"
+              action="action_pos_consumer_alert_log"
+              sequence="99"/>
+
+</odoo>
