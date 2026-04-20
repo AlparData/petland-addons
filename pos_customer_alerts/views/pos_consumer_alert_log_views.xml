@@ -96,20 +96,13 @@
                 <field name="pos_config_name"/>
                 <field name="order_ref"/>
                 <separator/>
-                <filter name="this_month" string="Este Mes" date="alert_date" default_period="month"/>
-                <separator/>
-                <filter name="high_count" string="5+ alertas en mes"
-                        domain="[('month_count', '&gt;=', 5)]"/>
-                <filter name="critical_count" string="10+ alertas en mes"
-                        domain="[('month_count', '&gt;=', 10)]"/>
-                <separator/>
+                <filter name="this_month" string="Este Mes" domain="[('alert_date', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
+                <filter name="high_count" string="5+ alertas en mes" domain="[('month_count', '&gt;=', 5)]"/>
+                <filter name="critical_count" string="10+ alertas en mes" domain="[('month_count', '&gt;=', 10)]"/>
                 <group expand="0" string="Agrupar por">
-                    <filter name="group_employee" string="Empleado"
-                            context="{'group_by': 'employee_id'}"/>
-                    <filter name="group_pos" string="Sucursal"
-                            context="{'group_by': 'pos_config_id'}"/>
-                    <filter name="group_month" string="Mes"
-                            context="{'group_by': 'alert_date:month'}"/>
+                    <filter name="group_employee" string="Empleado" context="{'group_by': 'employee_id'}"/>
+                    <filter name="group_pos" string="Sucursal" context="{'group_by': 'pos_config_id'}"/>
+                    <filter name="group_month" string="Mes" context="{'group_by': 'alert_date:month'}"/>
                 </group>
             </search>
         </field>
