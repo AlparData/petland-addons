@@ -96,8 +96,7 @@
                 <field name="pos_config_name"/>
                 <field name="order_ref"/>
                 <separator/>
-                <filter name="this_month" string="Este Mes"
-                        domain="[('alert_date', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                <filter name="this_month" string="Este Mes" date="alert_date" default_period="month"/>
                 <separator/>
                 <filter name="high_count" string="5+ alertas en mes"
                         domain="[('month_count', '&gt;=', 5)]"/>
