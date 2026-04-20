@@ -97,12 +97,8 @@
                 <field name="order_ref"/>
                 <separator/>
                 <filter name="this_month" string="Este Mes"
-                        domain="[('alert_date', '>=', (context_today()).strftime('%%Y-%%m-01'))]"/>
-                <filter name="last_month" string="Mes Anterior"
-                        domain="[
-                            ('alert_date', '>=', (context_today() - relativedelta(months=1)).strftime('%%Y-%%m-01')),
-                            ('alert_date', '&lt;', context_today().strftime('%%Y-%%m-01'))
-                        ]"/>
+                        domain="[('alert_date', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                
                 <separator/>
                 <filter name="high_count" string="5+ alertas en mes"
                         domain="[('month_count', '>=', 5)]"/>
