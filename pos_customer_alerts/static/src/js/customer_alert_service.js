@@ -68,12 +68,23 @@ function isConsumerFinal(partner) {
 // ============================================================
 // PATCH: POS Store con las 4 alertas
 // ============================================================
+
+// Diagnóstico: verificar qué métodos existen en PosStore
+console.log("[POS Alerts] PosStore.prototype methods check:");
+console.log("  - validateOrder:", typeof PosStore.prototype.validateOrder);
+console.log("  - selectPartner:", typeof PosStore.prototype.selectPartner);
+console.log("  - push_single_order:", typeof PosStore.prototype.push_single_order);
+console.log("  - get_cashier:", typeof PosStore.prototype.get_cashier);
+console.log("  - cashier:", "cashier" in PosStore.prototype);
+
+try {
 patch(PosStore.prototype, {
 
     /**
      * Override de setup para iniciar polling de pedidos web en Coto
      */
     async setup(...args) {
+        console.log("[POS Alerts] setup() llamado");
         await super.setup(...args);
         this._webOrdersPollTimer = null;
         this._webOrdersPopupShowing = false;
@@ -271,3 +282,6 @@ patch(PosStore.prototype, {
         return result;
     },
 });
+} catch (patchError) {
+    console.error("[POS Alerts] ❌ Error al aplicar patch en PosStore:", patchError);
+}
