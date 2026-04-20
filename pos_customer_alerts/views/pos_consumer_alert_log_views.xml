@@ -96,14 +96,12 @@
                 <field name="pos_config_name"/>
                 <field name="order_ref"/>
                 <separator/>
-                <filter name="this_month" string="Este Mes"
-                        domain="[('alert_date', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
-                
+                <filter name="this_month" string="Este Mes" date="alert_date" default_period="this_month"/>
                 <separator/>
                 <filter name="high_count" string="5+ alertas en mes"
-                        domain="[('month_count', '>=', 5)]"/>
+                        domain="[('month_count', '&gt;=', 5)]"/>
                 <filter name="critical_count" string="10+ alertas en mes"
-                        domain="[('month_count', '>=', 10)]"/>
+                        domain="[('month_count', '&gt;=', 10)]"/>
                 <separator/>
                 <group expand="0" string="Agrupar por">
                     <filter name="group_employee" string="Empleado"
