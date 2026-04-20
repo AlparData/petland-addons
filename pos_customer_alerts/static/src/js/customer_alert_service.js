@@ -8,6 +8,8 @@ import { ConsumerFinalPopup } from "./customer_alert_popup";
 import { PendingWebOrdersPopup } from "./customer_alert_popup";
 import { rpc } from "@web/core/network/rpc";
 
+console.log("[POS Alerts] ✅ customer_alert_service.js CARGADO");
+
 // IDs de partners "Consumidor Final" en Pet Land
 const CONSUMER_FINAL_IDS = [6, 126858];
 
