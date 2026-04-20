@@ -31,9 +31,10 @@ function isEmpty(value) {
 
 /**
  * Obtener nombre del cajero actual del POS
+ * En Odoo 17+ el cashier es this.cashier (no this.get_cashier())
  */
 function getCashierName(posStore) {
-    const cashier = posStore.get_cashier();
+    const cashier = posStore.cashier || posStore.get_cashier?.();
     if (cashier) {
         return cashier.name || cashier.display_name || "Cajero";
     }
@@ -44,7 +45,7 @@ function getCashierName(posStore) {
  * Obtener ID del empleado (hr.employee) del cajero
  */
 function getCashierEmployeeId(posStore) {
-    const cashier = posStore.get_cashier();
+    const cashier = posStore.cashier || posStore.get_cashier?.();
     if (cashier) {
         return cashier.id;
     }
@@ -53,9 +54,11 @@ function getCashierEmployeeId(posStore) {
 
 /**
  * Chequea si el partner es Consumidor Final
+ * Si no hay partner tambien se considera Consumidor Final
  */
 function isConsumerFinal(partner) {
     if (!partner) return true;
+    console.log("[POS Alerts] isConsumerFinal check - partner.id:", partner.id, "| name:", partner.name);
     return CONSUMER_FINAL_IDS.includes(partner.id);
 }
 
@@ -66,7 +69,7 @@ function isConsumerFinal(partner) {
 patch(PosStore.prototype, {
 
     /**
-     * Override de setup/after_start para iniciar polling de pedidos web en Coto
+     * Override de setup para iniciar polling de pedidos web en Coto
      */
     async setup(...args) {
         await super.setup(...args);
@@ -151,7 +154,8 @@ patch(PosStore.prototype, {
         const order = this.currentOrder;
         if (!order) return result;
 
-        const partner = order.get_partner();
+        // En Odoo 17+ el partner es una propiedad reactiva, no un metodo
+        const partner = order.partner ?? order.get_partner?.();
         if (!partner) return result;
 
         if (isConsumerFinal(partner)) return result;
@@ -186,7 +190,7 @@ patch(PosStore.prototype, {
                         if (payload.email) partner.email = payload.email;
                         if (payload.phone) partner.phone = payload.phone;
                     } catch (error) {
-                        console.error("Error guardando datos del cliente:", error);
+                        console.error("[POS Alerts] Error guardando datos del cliente:", error);
                     }
                 }
             }
@@ -211,19 +215,27 @@ patch(PosStore.prototype, {
 
     // ============================================================
     // POPUP 3: Al validar venta como Consumidor Final
+    // En Odoo 17+ se usa validateOrder en lugar de push_single_order
     // ============================================================
-    async push_single_order(order, opts) {
-        const result = await super.push_single_order(order, opts);
+    async validateOrder(isForceValidate) {
+        const order = this.currentOrder;
+        // En Odoo 17+ el partner es una propiedad reactiva
+        const partner = order?.partner ?? order?.get_partner?.();
+
+        console.log("[POS Alerts] validateOrder - partner.id:", partner?.id, "| name:", partner?.name);
+
+        const result = await super.validateOrder(isForceValidate);
 
         try {
-            const partner = order.get_partner();
-
             if (isConsumerFinal(partner)) {
+                console.log("[POS Alerts] Consumidor Final detectado! Registrando alerta...");
+
                 const cashierName = getCashierName(this);
                 const employeeId = getCashierEmployeeId(this);
                 const posConfigId = this.config?.id || null;
                 const orderRef = order.name || order.uid || "";
-                const orderAmount = order.get_total_with_tax() || 0;
+                // Compatibilidad Odoo 17/18/19
+                const orderAmount = order.getTotalWithTax?.() ?? order.get_total_with_tax?.() ?? 0;
 
                 let monthCount = 1;
                 try {
@@ -237,8 +249,9 @@ patch(PosStore.prototype, {
                         }
                     );
                     monthCount = response?.count || 1;
+                    console.log("[POS Alerts] Registro guardado. Count mensual:", monthCount);
                 } catch (rpcError) {
-                    console.error("Error registrando alerta consumidor final:", rpcError);
+                    console.error("[POS Alerts] Error registrando alerta consumidor final:", rpcError);
                 }
 
                 await this.env.services.dialog.add(
@@ -250,7 +263,7 @@ patch(PosStore.prototype, {
                 );
             }
         } catch (error) {
-            console.error("Error en alerta consumidor final:", error);
+            console.error("[POS Alerts] Error en alerta consumidor final:", error);
         }
 
         return result;
