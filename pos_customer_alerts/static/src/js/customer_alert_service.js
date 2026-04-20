@@ -148,7 +148,7 @@ patch(PosStore.prototype, {
     async selectPartner(...args) {
         const result = await super.selectPartner(...args);
 
-        const order = this.get_order();
+        const order = this.currentOrder;
         if (!order) return result;
 
         const partner = order.get_partner();
